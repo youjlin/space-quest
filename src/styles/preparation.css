@@ -1,0 +1,45 @@
+/* 第二關沿用第一關的精簡外框；這些補充樣式只影響第二關。 */
+.preparation-quiz .uses-progress > div { grid-template-columns: repeat(5, 1fr); }
+.preparation-body { align-items: center; }
+.preparation-figure { min-width: 0; }
+.preparation-diagram { width: 100%; height: clamp(165px, 30svh, 238px); display: block; }
+.preparation-function { --part-stroke: #667e8e; --part-fill: #112b3b; }
+.preparation-function .part-fill { fill: var(--part-fill); stroke: var(--part-stroke); }
+.preparation-function .part-line { fill: none; stroke: var(--part-stroke); }
+.preparation-function .label-line { fill: none; stroke: #587485; stroke-width: 1; }
+.preparation-function .orientation-line { fill: none; stroke: var(--part-stroke); }
+.preparation-function text { fill: #9ab0bd; font-family: inherit; font-size: 24px; }
+.preparation-function.is-ready { --part-stroke: #9be2e4; --part-fill: #2c5b69; }
+.preparation-function.is-ready text { fill: #a5e4e7; }
+.preparation-function.is-ready .label-line { stroke: #80c1ca; }
+.preparation-function.camera.is-ready { --part-fill: #bc9e60; --part-stroke: #f0d292; }
+.preparation-function .part-fill, .preparation-function .part-line, .preparation-function text { transition: fill .2s, stroke .2s; }
+.preparation-figure figcaption { color: #9db8c7; font-size: .875rem; line-height: 1.8; margin-top: 6px; }
+.preparation-figure figcaption > span { display: block; }
+.preparation-quiz .uses-choices legend { font-weight: 500; font-size: 1.0625rem; }
+.preparation-completion { border-top: 1px solid var(--line); margin-top: 18px; padding-block: 24px 12px; }
+.preparation-completion > h2 { font-size: clamp(1.5rem, 2.5vw, 1.875rem); font-weight: 600; line-height: 1.6; }
+.preparation-review { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: center; margin-top: 20px; }
+.preparation-review > .preparation-diagram { height: 200px; }
+.preparation-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 25px; list-style: none; }
+.preparation-flow > li { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; position: relative; color: #d8e8ed; font-size: 1rem; line-height: 1.8; }
+.preparation-flow svg { width: 34px; height: 34px; color: var(--cyan); }
+.preparation-flow .flow-connector { position: absolute; right: -23px; top: 24px; color: #84b8c7; font-size: 1.25rem; }
+.preparation-support { margin-top: 23px; text-align: center; color: #c2d6de; font-size: 1rem; line-height: 1.85; }
+.preparation-limitation, .preparation-next-note { color: #a9c3cf; font-size: 1rem; line-height: 1.85; margin-top: 14px; }
+.preparation-completion-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 25px; margin-top: 25px; }
+.preparation-replay { background: transparent; border-color: #4f7385; color: #c5dce6; cursor: pointer; }
+.preparation-replay:hover { background: #18384a; }
+@media (max-width: 600px) {
+  .preparation-diagram { height: clamp(165px, 28svh, 210px); }
+  .preparation-function text { font-size: 30px; }
+  .preparation-review { grid-template-columns: minmax(0, 1fr); gap: 17px; }
+  .preparation-review > .preparation-diagram { height: 185px; }
+  .preparation-support { text-align: left; }
+  .preparation-flow { gap: 18px; }
+  .preparation-flow .flow-connector { right: -19px; }
+  .preparation-completion-actions { gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preparation-function * { transition: none !important; }
+}

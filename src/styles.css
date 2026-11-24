@@ -1,0 +1,336 @@
+@charset "UTF-8";
+
+:root {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  color: #edf2f3;
+  background: #081725;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --background: #081725;
+  --surface: #0c2030;
+  --line: #253b4b;
+  --muted: #a6bac8;
+  --cyan: #88d7dc;
+  --yellow: #f0cf8c;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, a, input { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+button { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button:disabled { cursor: not-allowed; }
+button, a, meter { -webkit-user-select: none; user-select: none; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 6px; }
+main:focus { outline: none; }
+::selection { background: #88d7dc; color: #081725; }
+h1, h2, h3, p, figure { margin: 0; }
+ul, ol { margin: 0; padding: 0; }
+svg { display: block; }
+.container { width: min(1240px, calc(100% - 112px)); margin-inline: auto; }
+.app-shell { position: relative; isolation: isolate; overflow: clip; min-height: 100vh; display: flex; flex-direction: column; }
+.app-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 80% 18%, #17384a66, transparent 43%),
+    radial-gradient(circle at 10% 26%, #b9d7de70 0 1px, transparent 1.5px),
+    radial-gradient(circle at 92% 45%, #b9d7de55 0 1px, transparent 1.5px),
+    radial-gradient(circle at 45% 9%, #b9d7de55 0 1px, transparent 1.5px),
+    radial-gradient(circle at 3% 67%, #b9d7de55 0 1px, transparent 1.5px);
+}
+main { flex: 1; }
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; transform: translateY(-160%); padding: 14px 20px; background: var(--yellow); color: var(--background); border-radius: 4px; }
+.skip-link:focus { transform: translateY(0); }
+
+/* 共用頁首與頁尾 */
+.site-header { min-height: 104px; display: flex; align-items: center; gap: 56px; border-bottom: 1px solid var(--line); }
+.brand { display: flex; gap: 13px; align-items: center; font-size: 1.125rem; font-weight: 700; letter-spacing: .06em; white-space: nowrap; }
+.brand-mark { width: 43px; height: 43px; color: var(--cyan); }
+.brand-mark svg { width: 100%; height: 100%; }
+.brand-second { margin-left: 4px; color: var(--cyan); }
+.main-nav { display: flex; align-self: stretch; gap: 35px; margin-left: auto; }
+.main-nav a { display: flex; position: relative; align-items: center; min-height: 48px; color: var(--muted); font-size: .9375rem; }
+.main-nav a::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: transparent; }
+.main-nav a:hover, .main-nav a.is-active { color: var(--cyan); }
+.main-nav a.is-active::after { background: var(--cyan); }
+.header-note { font-size: .875rem; letter-spacing: .08em; color: #91a9b8; padding-left: 32px; border-left: 1px solid var(--line); }
+.site-footer { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-top: 62px; min-height: 100px; border-top: 1px solid var(--line); color: #91a9b8; font-size: .875rem; }
+.footer-signature { display: inline-flex; gap: 12px; align-items: center; }
+.footer-signature svg { width: 26px; height: 26px; color: #8ab6c5; }
+.footer-divider { margin-inline: 12px; color: #506a7b; }
+
+/* 按鈕與文字 */
+.eyebrow { display: flex; align-items: center; gap: 10px; color: var(--cyan); font-size: .875rem; letter-spacing: .13em; font-weight: 500; line-height: 1.8; }
+.small-cross { display: inline-block; width: 12px; height: 12px; position: relative; }
+.small-cross::before, .small-cross::after { content: ""; position: absolute; background: var(--cyan); }
+.small-cross::before { width: 12px; height: 1px; top: 5px; }
+.small-cross::after { width: 1px; height: 12px; left: 5px; }
+.button { min-height: 50px; padding: 13px 26px; display: inline-flex; align-items: center; justify-content: center; gap: 26px; border: 1px solid transparent; border-radius: 5px; font-size: 1rem; font-weight: 700; line-height: 1.5; transition: background .18s, transform .18s; }
+.button-primary { background: var(--yellow); color: #142534; border-color: var(--yellow); }
+.button-primary:hover { background: #ffe1a3; border-color: #ffe1a3; transform: translateY(-2px); }
+.button-primary svg { width: 25px; height: 25px; }
+.button-unavailable { border-color: #344b5c; color: #a6b8c5; background: #142838; }
+.text-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; color: var(--cyan); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: #46707e; }
+.text-link:hover { color: #c0f4f5; text-decoration-color: currentColor; }
+.quiet-tag { display: inline-flex; padding: 5px 10px; border: 1px solid #3c5262; border-radius: 3px; font-size: .875rem; color: #b2c5cf; white-space: nowrap; line-height: 1.5; }
+
+/* 首頁：文字與開放式太空場景，避免重複卡片 */
+.hero { position: relative; display: grid; grid-template-columns: .94fr 1.1fr; align-items: center; min-height: 650px; padding-block: 48px 80px; }
+.hero-copy { position: relative; z-index: 1; padding-bottom: 10px; }
+.hero h1 { font-size: clamp(3.25rem, 5.4vw, 4.75rem); line-height: 1.28; letter-spacing: -.035em; font-weight: 800; margin-top: 24px; }
+.hero h1 span { color: var(--cyan); }
+.hero-description { color: #b3c4cf; font-size: 1.0625rem; line-height: 1.95; margin-top: 25px; }
+.hero-cta { margin-top: 33px; min-width: 194px; min-height: 56px; }
+.hero-footnote { color: #91a9b8; font-size: .875rem; margin-top: 18px; line-height: 1.7; }
+.hero-visual { position: relative; width: calc(100% + 90px); margin-left: -30px; }
+.satellite-illustration { width: 100%; height: auto; overflow: visible; }
+.visual-coordinate { position: absolute; top: 22px; right: 28px; display: flex; align-items: center; gap: 11px; font-size: .875rem; color: #9eb8c7; letter-spacing: .08em; }
+.coordinate-line { width: 26px; height: 1px; background: #80bfc9; position: relative; }
+.coordinate-line::after { content: ""; width: 4px; height: 4px; border-radius: 50%; position: absolute; right: 0; top: -1.5px; background: var(--cyan); }
+.hero-visual figcaption { display: flex; position: absolute; bottom: 20px; left: 100px; gap: 13px; color: #a9bdc9; font-size: .875rem; }
+.hero-visual figcaption span { color: #8ea9b8; padding-left: 13px; border-left: 1px solid #3b5362; }
+.hero-bottom-note { display: flex; align-items: center; gap: 12px; position: absolute; bottom: 27px; color: #a8bdc9; font-size: .875rem; }
+.hero-bottom-note > span { color: var(--yellow); font-size: 1.25rem; }
+.journey-section { border-top: 1px solid var(--line); padding-top: 38px; }
+.section-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; }
+.section-intro h2 { font-size: 1.625rem; font-weight: 600; margin-top: 9px; letter-spacing: .025em; line-height: 1.5; }
+.journey-overview { display: grid; grid-template-columns: repeat(3, 1fr); list-style: none; margin-top: 32px; }
+.journey-overview > li { position: relative; padding-right: 30px; }
+.journey-overview > li:not(:last-child)::after { content: ""; height: 1px; background: linear-gradient(90deg, #355767, #253b4b); top: 22px; left: 113px; right: 23px; position: absolute; }
+.journey-node { display: flex; gap: 20px; align-items: center; color: var(--cyan); min-height: 44px; font-size: .875rem; }
+.journey-node svg { width: 28px; height: 28px; }
+.journey-overview h3 { font-size: 1.125rem; font-weight: 600; margin-top: 17px; line-height: 1.5; }
+.journey-overview p { color: var(--muted); font-size: .9375rem; line-height: 1.8; margin-top: 7px; }
+.development-note { display: flex; gap: 10px; align-items: flex-start; margin-top: 36px; color: #a5bdcb; font-size: .875rem; line-height: 1.8; }
+.development-note svg { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; }
+
+/* 任務路線：一條連續的探索路徑 */
+.page-heading { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.page-heading h1 { font-size: clamp(2rem, 3.4vw, 2.75rem); line-height: 1.45; font-weight: 700; letter-spacing: -.02em; margin-top: 14px; }
+.page-description { color: #aec1ce; font-size: 1rem; line-height: 1.9; margin-top: 13px; }
+.route-heading { padding-block: 55px 32px; }
+.route-stamp { display: flex; align-items: center; gap: 18px; color: #9cb5c4; line-height: 1.9; font-size: .875rem; }
+.route-stamp > svg { width: 66px; height: 66px; color: #7eb8c8; }
+.route-stamp strong { color: var(--cyan); font-weight: 500; letter-spacing: .05em; }
+.inline-notice { display: flex; align-items: flex-start; gap: 11px; color: #afc8d2; font-size: .9375rem; line-height: 1.8; padding-bottom: 25px; border-bottom: 1px solid var(--line); }
+.inline-notice svg { width: 21px; height: 21px; flex-shrink: 0; margin-top: 2px; color: var(--cyan); }
+.mission-route { list-style: none; }
+.mission-stop { display: grid; position: relative; grid-template-columns: 48px 100px 1fr 170px; align-items: center; column-gap: 28px; padding-block: 33px; }
+.mission-stop:not(:last-child)::after { content: ""; background: var(--line); height: 1px; position: absolute; left: 76px; right: 0; bottom: 0; }
+.route-marker { align-self: stretch; display: flex; align-items: center; justify-content: center; position: relative; }
+.route-marker::before { content: ""; position: absolute; width: 1px; top: -33px; bottom: -33px; background: #345061; z-index: -1; }
+.mission-stop:first-child .route-marker::before { top: 50%; }
+.mission-stop:last-child .route-marker::before { bottom: 50%; }
+.route-marker > span { width: 42px; height: 42px; border: 1px solid #456375; border-radius: 50%; background: var(--background); color: #a9c1cd; display: flex; align-items: center; justify-content: center; font-size: .9375rem; font-variant-numeric: tabular-nums; }
+.mission-emblem { border: 1px solid #335164; background: #102b3d; width: 92px; height: 100px; display: grid; place-items: center; border-radius: 40px 40px 10px 10px; }
+.mission-emblem svg { width: 47px; height: 47px; color: #8dbfce; }
+.mission-kicker { color: #99b4c3; font-size: .875rem; line-height: 1.8; }
+.mission-kicker > span { margin-inline: 10px; color: #506f82; }
+.mission-summary h2 { font-size: 1.5rem; font-weight: 600; margin-top: 6px; line-height: 1.5; }
+.mission-summary > p { max-width: 560px; margin-top: 10px; color: var(--muted); font-size: .9375rem; line-height: 1.85; }
+.topic-list { display: flex; gap: 18px; list-style: none; color: #96bbc8; margin-top: 14px; font-size: .875rem; }
+.topic-list li { display: flex; align-items: center; gap: 7px; }
+.topic-list li::before { content: ""; width: 4px; height: 4px; border: 1px solid #6c9aab; transform: rotate(45deg); }
+.mission-entry { display: flex; flex-direction: column; align-items: center; gap: 13px; }
+.mission-entry .button { width: 100%; padding-inline: 16px; }
+.availability { color: #96acba; font-size: .875rem; }
+.available-availability { color: var(--yellow); }
+.available-stop .mission-emblem { border-color: #6b7154; background: #2b302c; }
+.available-stop .mission-emblem svg { color: var(--yellow); }
+.available-stop .route-marker > span { color: var(--yellow); border-color: #a08d5d; }
+.reading-teaser { margin: 22px 0 16px 76px; background: #0d2433; border-left: 2px solid #669ba8; padding: 25px 28px; display: flex; gap: 22px; align-items: center; }
+.reading-mark { color: var(--cyan); font-size: 2rem; font-weight: 300; }
+.reading-teaser h2 { font-size: 1.0625rem; font-weight: 500; }
+.reading-teaser p { color: var(--muted); font-size: .9375rem; line-height: 1.85; margin-top: 6px; }
+.reading-teaser .quiet-tag { margin-left: auto; }
+.route-view > .page-back { margin-left: 76px; }
+
+/* 第三關控制台的共用布局；互動樣式位於 styles/mission.css。 */
+.mission-view { padding-top: 27px; }
+.console-heading { margin-top: 20px; }
+.console-heading h1 { margin-top: 9px; }
+.mission-console { display: grid; grid-template-columns: 1.25fr 1fr; margin-top: 27px; border: 1px solid #365062; border-radius: 8px; overflow: hidden; background: #0b1e2c; }
+.orbital-stage { position: relative; border-right: 1px solid var(--line); overflow: hidden; min-height: 480px; display: flex; flex-direction: column; background: radial-gradient(ellipse at center, #16364a66, transparent 65%); }
+.stage-heading { display: flex; justify-content: space-between; align-items: center; padding: 24px 27px 0; z-index: 1; font-size: .9375rem; letter-spacing: .025em; }
+.orbital-stage .satellite-illustration { width: 100%; margin-block: -28px -80px; flex: 1; }
+.stage-caption { display: flex; align-items: center; gap: 13px; color: #9db8c7; font-size: .875rem; line-height: 1.9; padding: 0 27px 25px; z-index: 1; }
+.stage-caption svg { width: 30px; height: 30px; color: var(--cyan); }
+.stage-caption strong { color: #d7e2e7; font-weight: 400; font-size: .9375rem; }
+.telemetry { padding: 27px 30px 25px; }
+.telemetry > h2 { display: flex; align-items: center; justify-content: space-between; font-size: 1.125rem; font-weight: 500; }
+.telemetry > h2 > span { color: #a4b8c5; font-size: .875rem; font-weight: 400; }
+.resource { margin-top: 27px; }
+.resource-label { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.resource-label > span, .turn-display > span { display: flex; align-items: center; gap: 9px; font-size: .9375rem; color: #c4d5de; }
+.resource-label svg, .turn-display svg { width: 23px; height: 23px; color: #9fbecb; }
+.resource-label strong { font-size: 1.625rem; color: var(--cyan); font-variant-numeric: tabular-nums; font-weight: 500; }
+.resource-label small { color: #a6bdcb; font-size: .875rem; font-weight: 400; }
+.resource-data .resource-label strong { color: #e5c589; }
+.resource p { color: #9ab2c2; font-size: .875rem; line-height: 1.8; margin-top: 9px; }
+meter { width: 100%; height: 8px; display: block; margin-top: 12px; border: 0; background: #203c4b; border-radius: 2px; overflow: hidden; }
+meter::-webkit-meter-bar { border: 0; background: #203c4b; border-radius: 2px; height: 8px; }
+meter::-webkit-meter-optimum-value { background: var(--cyan); border-radius: 2px; }
+meter::-moz-meter-bar { background: var(--cyan); border-radius: 2px; }
+.resource-data meter::-webkit-meter-optimum-value { background: var(--yellow); }
+.resource-data meter::-moz-meter-bar { background: var(--yellow); }
+.turn-display { display: flex; align-items: center; justify-content: space-between; padding-block: 21px; border-top: 1px solid var(--line); margin-top: 23px; }
+.turn-display > strong { font-size: 1.625rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.turn-display small { font-size: .875rem; font-weight: 400; color: #a6bdcb; }
+.communication-note { display: flex; align-items: flex-start; gap: 12px; background: #112b3a; padding: 16px; border-radius: 4px; }
+.communication-note > svg { width: 24px; height: 24px; flex-shrink: 0; color: var(--cyan); }
+.communication-note h3 { color: #c9e2e7; font-size: .875rem; font-weight: 500; line-height: 1.7; }
+.communication-note p { color: #a2bdcb; font-size: .875rem; line-height: 1.85; margin-top: 5px; }
+.action-deck { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 23px 28px 28px; background: #0f2432; }
+.action-heading { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.action-heading > h2 { font-size: 1rem; font-weight: 500; }
+.action-heading > span { color: #b6bbaa; font-size: .875rem; }
+.action-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+.action-buttons strong { font-weight: 500; font-size: 1.0625rem; display: block; }
+.action-buttons small { font-size: .875rem; color: #9db4c3; display: block; margin-top: 7px; }
+
+@media (min-width: 1500px) {
+  .hero { min-height: 700px; }
+}
+
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 72px); }
+  .site-header { gap: 30px; }
+  .header-note { display: none; }
+  .hero { min-height: 600px; grid-template-columns: 1fr 1fr; }
+  .hero-visual { width: calc(100% + 90px); margin-left: -35px; }
+  .hero-description { font-size: 1rem; }
+  .desktop-break { display: none; }
+  .hero-visual figcaption { left: 55px; font-size: .8125rem; }
+  .visual-coordinate { top: -10px; right: 20px; font-size: .8125rem; }
+  .mission-stop { grid-template-columns: 42px 80px 1fr 145px; column-gap: 20px; }
+  .mission-emblem { width: 76px; height: 88px; }
+  .mission-summary h2 { font-size: 1.375rem; }
+  .mission-kicker > span { margin-inline: 5px; }
+  .reading-teaser { margin-left: 62px; }
+  .mission-stop:not(:last-child)::after { left: 62px; }
+  .route-view > .page-back { margin-left: 62px; }
+  .mission-console { grid-template-columns: 1fr 1fr; }
+  .telemetry { padding-inline: 22px; }
+}
+
+@media (max-width: 780px) {
+  .container { width: calc(100% - 48px); }
+  .site-header { min-height: 88px; gap: 15px; }
+  .brand { font-size: 1rem; gap: 9px; letter-spacing: .02em; }
+  .brand-mark { width: 35px; height: 35px; }
+  .main-nav { gap: 22px; }
+  .main-nav a { font-size: .875rem; }
+  .hero { display: block; padding-block: 48px 65px; }
+  .hero-copy { max-width: 540px; }
+  .hero h1 { font-size: clamp(3rem, 8.5vw, 4.5rem); margin-top: 20px; }
+  .hero-description { max-width: 420px; }
+  .hero-visual { width: min(100%, 600px); margin: 15px auto 0; }
+  .visual-coordinate { top: 22px; right: 5px; }
+  .hero-visual figcaption { left: 35px; bottom: 12px; }
+  .hero-bottom-note { bottom: 14px; }
+  .journey-section { padding-top: 28px; }
+  .section-intro h2 { font-size: 1.375rem; }
+  .section-intro { align-items: flex-start; }
+  .section-intro .text-link { white-space: nowrap; font-size: .875rem; }
+  .journey-overview { gap: 20px; }
+  .journey-overview > li { padding-right: 0; }
+  .journey-overview > li:not(:last-child)::after { left: 97px; right: 0; }
+  .journey-node { gap: 13px; }
+  .journey-overview h3 { font-size: 1rem; }
+  .journey-overview p { font-size: .875rem; }
+  .site-footer { flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; padding-block: 26px; margin-top: 45px; font-size: .8125rem; }
+  .route-heading { padding-block: 38px 25px; }
+  .route-stamp { display: none; }
+  .mission-stop { grid-template-columns: 38px 1fr; gap: 0 20px; padding-block: 30px; }
+  .mission-emblem { display: none; }
+  .route-marker { grid-row: 1 / 3; align-items: flex-start; padding-top: 30px; }
+  .route-marker > span { width: 36px; height: 36px; font-size: .875rem; }
+  .route-marker::before { top: -30px; bottom: -30px; }
+  .mission-stop:first-child .route-marker::before { top: 49px; }
+  .mission-stop:last-child .route-marker::before { bottom: calc(100% - 49px); }
+  .mission-entry { grid-column: 2; flex-direction: row; justify-content: space-between; margin-top: 20px; gap: 15px; }
+  .mission-entry .button { width: auto; min-width: 150px; }
+  .availability { font-size: .875rem; }
+  .mission-stop:not(:last-child)::after { left: 58px; }
+  .reading-teaser { margin-left: 58px; padding: 20px; gap: 14px; flex-wrap: wrap; }
+  .reading-mark { display: none; }
+  .reading-teaser .quiet-tag { margin-left: 0; }
+  .route-view > .page-back { margin-left: 58px; }
+  .mission-console { grid-template-columns: 1fr; }
+  .orbital-stage { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; }
+  .orbital-stage .satellite-illustration { width: min(100%, 600px); margin: -40px auto -95px; flex: none; }
+  .diagram-labels { font-size: 24px; }
+  .stage-caption { padding-top: 0; }
+  .telemetry { padding: 25px; }
+  .action-deck { padding-inline: 25px; }
+  .action-buttons { gap: 12px; }
+  .action-buttons small { min-height: 42px; line-height: 1.6; }
+}
+
+@media (max-width: 480px) {
+  .container { width: calc(100% - 40px); }
+  .site-header { min-height: 80px; }
+  .brand { font-size: .9375rem; gap: 8px; }
+  .brand > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+  .brand-second { margin-left: 0; font-size: .8125rem; letter-spacing: .16em; }
+  .brand-mark { width: 32px; height: 32px; }
+  .main-nav { gap: 20px; }
+  .hero { padding-top: 38px; }
+  .hero h1 { font-size: 3.25rem; }
+  .hero-description { line-height: 1.95; margin-top: 22px; }
+  .hero-cta { margin-top: 26px; }
+  .hero-visual { margin-top: 30px; width: calc(100% + 24px); margin-left: -12px; }
+  .diagram-labels { font-size: 34px; }
+  .visual-coordinate { top: -5px; right: 9px; font-size: .8125rem; }
+  .hero-visual figcaption { font-size: .75rem; left: 23px; gap: 9px; bottom: 0; }
+  .hero-visual figcaption span { padding-left: 9px; }
+  .hero-bottom-note { font-size: .8125rem; gap: 7px; }
+  .section-intro { display: block; }
+  .section-intro .text-link { margin-top: 10px; }
+  .journey-overview { grid-template-columns: 1fr; margin-top: 13px; gap: 0; }
+  .journey-overview > li { display: grid; grid-template-columns: 80px 1fr; column-gap: 19px; padding-block: 20px; }
+  .journey-overview > li + li { border-top: 1px solid #233b4b; }
+  .journey-overview > li:not(:last-child)::after { display: none; }
+  .journey-node { grid-row: 1 / 3; flex-direction: column; justify-content: center; gap: 11px; border-right: 1px solid #29495a; margin-right: 2px; padding-right: 17px; }
+  .journey-overview h3 { margin-top: 0; font-size: 1.0625rem; }
+  .journey-overview p { margin-top: 5px; }
+  .development-note { margin-top: 22px; }
+  .page-heading { gap: 12px; }
+  .page-heading h1 { font-size: 1.875rem; }
+  .route-heading h1 { font-size: 1.75rem; }
+  .page-description { margin-top: 10px; }
+  .mission-stop { column-gap: 12px; grid-template-columns: 34px 1fr; }
+  .route-marker > span { width: 32px; height: 32px; }
+  .mission-summary h2 { font-size: 1.25rem; }
+  .mission-kicker { font-size: .875rem; }
+  .mission-kicker > span { margin-inline: 3px; }
+  .mission-entry { flex-wrap: wrap; gap: 12px; }
+  .mission-entry .button { padding: 10px 17px; min-width: 140px; }
+  .mission-stop:not(:last-child)::after { left: 46px; }
+  .reading-teaser { margin-left: 46px; padding: 20px 16px; }
+  .route-view > .page-back { margin-left: 46px; }
+  .mission-view { padding-top: 18px; }
+  .console-heading { align-items: flex-start; flex-wrap: wrap; margin-top: 14px; }
+  .mission-console { margin-top: 20px; }
+  .stage-heading { padding: 20px 18px 0; font-size: .875rem; }
+  .orbital-stage .satellite-illustration { margin-block: -12px -35px; }
+  .stage-caption { padding: 0 18px 20px; }
+  .telemetry { padding: 22px 18px; }
+  .action-deck { padding: 21px 18px; }
+  .action-heading { align-items: flex-start; }
+  .action-heading > h2 { font-size: .9375rem; }
+  .action-heading > span { font-size: .875rem; }
+  .action-buttons { grid-template-columns: 1fr; gap: 12px; }
+  .action-buttons small { min-height: 0; }
+  .site-footer { font-size: .8125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+}

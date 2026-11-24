@@ -1,0 +1,191 @@
+﻿/* 第三關專用：依瀏覽器內容高度縮放場景，文字與操作保持自然高度。 */
+.app-shell.mission-layout { overflow: visible; }
+body:has(.mission-layout) { min-width: 0; }
+.mission-layout .site-header { min-height: 52px; padding-block: 2px; gap: 24px; flex-wrap: wrap; }
+.mission-layout .brand-mark { width: 32px; height: 32px; }
+.mission-layout .site-footer { display: none; }
+.mission-screen.mission-view { max-width: 1120px; padding-top: 4px; }
+.mission-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; }
+.mission-topbar h1 { font-size: 1.0625rem; font-weight: 500; display: flex; gap: 14px; align-items: center; }
+.mission-topbar h1 > span { font-size: .875rem; color: var(--cyan); }
+.mission-tools { display: flex; gap: 19px; flex-wrap: wrap; }
+.mission-tools button, .lesson-skip button { border: 0; background: none; color: #b6d1db; font-size: .875rem; min-height: 38px; cursor: pointer; padding: 4px; }
+.mission-tools button:hover, .lesson-skip button:hover { color: var(--yellow); }
+.mission-tools button:disabled { opacity: .55; }
+.mission-scene { width: 100%; height: 100%; display: block; }
+.mission-photo { display: block; max-width: 100%; }
+.mission-screen .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.mission-screen [tabindex='-1']:focus { outline: none; }
+.mission-screen [tabindex='-1']:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+
+/* 教學三步使用同一個區域；底部導覽與略過列一直保留高度。 */
+.mission-briefing { padding-block: 4px 0; }
+.briefing-goal { text-align: center; }
+.briefing-goal h2 { font-size: clamp(1.25rem, 2vw, 1.375rem); font-weight: 600; line-height: 1.4; }
+.briefing-goal p { font-size: 1rem; color: #b3ced9; line-height: 1.8; margin-top: 4px; }
+.lesson-progress { display: flex; justify-content: center; list-style: none; gap: 32px; margin-top: 8px; }
+.lesson-progress li { color: #9bb8c7; font-size: .9375rem; line-height: 1.8; }
+.lesson-progress .active { color: var(--yellow); }
+.lesson-content { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 30px; align-items: center; min-height: 11rem; margin-block: 4px; }
+.lesson-content .mission-scene { height: clamp(144px, calc(100svh - 440px), 320px); }
+.lesson-copy { min-height: 9rem; }
+.lesson-copy > p:first-child { color: #95b8c7; font-size: .875rem; }
+.lesson-copy h3 { font-size: 1.75rem; line-height: 1.5; font-weight: 600; color: #edf2f3; margin-block: 5px 8px; }
+.lesson-copy > p:last-child { color: #bad2dd; font-size: 1.0625rem; line-height: 1.8; max-width: 25em; }
+.lesson-navigation { display: flex; gap: 28px; justify-content: center; align-items: center; }
+.lesson-navigation > button { min-width: 150px; min-height: 50px; cursor: pointer; }
+.lesson-previous { border: 1px solid #557b8b; color: #c3dae3; background: transparent; border-radius: 5px; padding: 12px 20px; }
+.lesson-previous:disabled { opacity: .4; }
+.lesson-skip { min-height: 38px; display: flex; justify-content: center; gap: 25px; }
+
+/* 三層操作畫面：目標、主要場景、資源與操作。 */
+.mission-playground { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-areas: 'goal goal' 'scene scene' 'targets contact' 'console console' 'feedback feedback' 'wait wait'; gap: 3px 24px; }
+.play-goal { grid-area: goal; display: flex; align-items: center; gap: 24px; min-height: 40px; flex-wrap: wrap; }
+.play-goal h2 { font-size: 1rem; font-weight: 500; line-height: 1.7; margin-right: auto; }
+.play-goal p { color: #b6cdd7; font-size: .9375rem; white-space: nowrap; }
+.play-goal strong { color: var(--yellow); font-size: 1.125rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.play-scene { grid-area: scene; position: relative; }
+.play-scene .mission-scene { height: clamp(110px, calc(100svh - 505px), 330px); }
+.scene-caption { display: flex; justify-content: space-between; gap: 12px; font-size: .875rem; color: #a9c8d4; min-height: 24px; line-height: 1.7; }
+.scene-caption > span:last-child { color: #91adbc; }
+.target-progress { grid-area: targets; display: flex; gap: 24px; align-items: center; min-height: 50px; }
+.target-progress > div { display: flex; align-items: center; gap: 8px; font-size: .9375rem; color: #a9c4cf; }
+.target-progress .mission-photo { width: 48px; height: 34px; }
+.target-progress strong { font-weight: 500; color: #e0ecee; }
+.target-progress .delivered { color: var(--cyan); }
+.play-contact { grid-area: contact; display: flex; align-items: center; justify-content: flex-end; gap: 8px; color: #c7c6ad; line-height: 1.6; font-size: .9375rem; }
+.play-contact svg { width: 23px; height: 23px; flex-shrink: 0; }
+.play-contact.receiving { color: var(--cyan); }
+.play-console { grid-area: console; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.2fr); gap: 32px; align-items: start; border-top: 1px solid #2b4758; padding-top: 9px; }
+.play-resources { display: flex; justify-content: space-between; gap: 25px; flex-wrap: wrap; }
+.simple-battery { min-width: 115px; flex: 1; max-width: 180px; }
+.simple-battery > div:first-child { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 28px; }
+.simple-battery span { display: flex; align-items: center; gap: 6px; font-size: .9375rem; color: #bed5df; }
+.simple-battery svg { width: 25px; height: 25px; color: var(--cyan); }
+.simple-battery strong { font-size: 1.25rem; color: var(--cyan); font-weight: 500; }
+.simple-battery small { font-size: .875rem; color: #9ab9c9; }
+.battery-track { height: 10px; background: #243f4e; border-radius: 3px; margin-top: 9px; }
+.battery-track > span { height: 100%; background: #86d5cf; border-radius: inherit; transition: width .65s ease-out; }
+.stored-photos > p { font-size: .875rem; color: #bed5df; line-height: 1.7; }
+.stored-photos > div { display: flex; gap: 9px; margin-top: 5px; }
+.photo-slot { min-width: 72px; min-height: 36px; display: flex; gap: 5px; align-items: center; justify-content: center; border: 1px dashed #466b7f; border-radius: 3px; padding: 2px 5px; color: #aac5d2; font-size: .875rem; }
+.photo-slot .mission-photo { width: 38px; height: 28px; }
+.primary-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; position: relative; }
+.primary-control { min-width: 0; }
+.primary-control button { width: 100%; display: grid; grid-template-columns: auto auto; align-items: center; justify-content: center; gap: 3px 8px; min-height: 65px; padding: 8px; background: #194254; color: #e0eff1; border: 1px solid #679eae; border-radius: 5px; cursor: pointer; }
+.primary-control button > svg { width: 23px; height: 23px; color: var(--cyan); }
+.primary-control strong { font-size: 1rem; font-weight: 600; }
+.primary-control small { grid-column: 1 / -1; font-size: .875rem; color: #bad2dc; }
+.primary-control button:hover:not(:disabled) { background: #285d6c; }
+.primary-control button.unavailable { background: #102b3c; border-color: #3f6073; color: #a9c3d1; }
+.primary-control button:disabled { cursor: not-allowed; opacity: .7; }
+.unavailable-reason { min-height: 24px; font-size: .875rem; line-height: 1.6; color: #dfc7a1; margin-top: 3px; text-align: center; }
+.play-feedback { grid-area: feedback; display: flex; align-items: center; min-height: 44px; line-height: 1.7; color: #cce3e6; font-size: 1rem; }
+.play-feedback.rejected { color: var(--yellow); }
+.play-wait { grid-area: wait; display: flex; align-items: center; gap: 13px; min-height: 44px; }
+.play-wait button { min-height: 40px; display: flex; align-items: center; gap: 7px; border: 1px solid #426777; border-radius: 4px; background: none; color: #bcd9e2; font-size: .9375rem; cursor: pointer; padding: 6px 12px; }
+.play-wait svg { width: 19px; height: 19px; }
+.play-wait span { color: #a1becd; font-size: .875rem; line-height: 1.7; }
+.mission-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 40px; }
+.mission-bottom p { font-size: .875rem; color: #99b6c6; line-height: 1.7; }
+.mission-bottom .text-link { min-height: 40px; }
+
+/* 需要時替換成單一資訊面板，長內容使用整頁自然捲動。 */
+.mission-panel { padding: 14px 0 25px; }
+.mission-panel > header { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.mission-panel h2 { font-size: 1.5rem; font-weight: 500; }
+.panel-close { border-color: #638f9f; background: transparent; color: #d4e6eb; cursor: pointer; }
+.mission-panel nav { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+.mission-panel nav button { border: 1px solid #496d80; background: #122f40; color: #bfd6e1; border-radius: 4px; min-height: 44px; font-size: 1rem; padding: 8px 14px; cursor: pointer; }
+.mission-panel nav button[aria-pressed='true'] { color: #132737; background: var(--cyan); }
+.panel-rules { padding-left: 24px; max-width: 850px; }
+.panel-rules li, .science-copy p { font-size: 1rem; color: #b6d0db; line-height: 1.9; margin-bottom: 14px; }
+.compact-timeline { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.compact-timeline li { display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #122f3f; border: 1px solid #31566c; color: #a7c4d2; font-size: .9375rem; }
+.compact-timeline .current { border-color: var(--yellow); }
+.compact-timeline .receiving > span:first-of-type { color: var(--cyan); }
+.compact-log { list-style: none; }
+.compact-log li { display: flex; flex-wrap: wrap; gap: 10px 24px; border-top: 1px solid #2b495c; padding: 14px 0; font-size: 1rem; color: #b3cedc; line-height: 1.8; }
+.compact-log strong { color: var(--cyan); font-weight: 500; }
+.simple-result { padding: 30px 0; text-align: center; }
+.simple-result h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; line-height: 1.6; color: var(--cyan); }
+.simple-result.failure h2 { color: var(--yellow); }
+.simple-result > p { font-size: 1.0625rem; line-height: 1.9; color: #bbd4de; margin: 14px auto; max-width: 700px; }
+.result-photos { display: flex; justify-content: center; gap: 30px; margin: 18px 0; }
+.result-photos figure { width: min(210px, 40%); }
+.result-photos .mission-photo { width: 100%; max-height: 145px; }
+.result-photos figcaption { font-size: .9375rem; line-height: 1.8; color: #bfdbe4; margin-top: 8px; }
+.result-actions { display: flex; justify-content: center; gap: 28px; align-items: center; margin-top: 23px; }
+
+.scene-satellite { transform: translateX(var(--sat-x)); }
+.scene-satellite.waiting { animation: satellite-wait .65s ease-out both; }
+.scene-panels.charging { fill: #63a2ac; stroke: #f1d28a; }
+.scene-link { stroke: #3a5f72; opacity: .45; }
+.scene-link.receiving { stroke: #8de0df; opacity: 1; }
+.scene-station.receiving .station-light { fill: #9ce6de; }
+.scene-energy { animation: energy-glow .65s ease-out both; }
+.scene-shutter { animation: shutter .65s ease-out both; }
+.flying-photo.capture { animation: photo-capture .65s ease-in-out both; }
+.flying-photo.transmit { animation: photo-transmit .65s ease-in-out both; }
+.photo-slot.arriving { animation: stored-photo .65s ease-out both; }
+@keyframes satellite-wait { from { transform: translateX(var(--sat-before)); } to { transform: translateX(var(--sat-x)); } }
+@keyframes energy-glow { from { opacity: .2; } 50% { opacity: 1; } to { opacity: .2; } }
+@keyframes shutter { from { opacity: 0; } 30% { opacity: 1; } to { opacity: 0; } }
+@keyframes photo-capture { from { transform: translate(var(--capture-x), 180px) scale(.8); opacity: 1; } to { transform: translate(250px, 100px) scale(.5); opacity: 0; } }
+@keyframes photo-transmit { from { transform: translate(280px, 65px) scale(.6); } 50% { transform: translate(550px, 50px) scale(.8); } to { transform: translate(850px, 220px) scale(.5); } }
+@keyframes stored-photo { from { opacity: .15; } 75% { opacity: .15; } to { opacity: 1; } }
+
+@media (max-width: 900px) {
+  .mission-screen.container { width: calc(100% - 48px); }
+  .play-console { gap: 20px; grid-template-columns: 1fr 1.25fr; }
+  .play-resources { gap: 14px; }
+  .target-progress { gap: 15px; }
+  .photo-slot { min-width: 55px; flex-direction: column; gap: 0; }
+  .simple-battery small { display: none; }
+  .primary-control button { gap: 4px; }
+}
+/* 窄螢幕與放大文字回到自然文流，不用裁切或區塊小捲軸。 */
+@media (max-width: 700px) {
+  .mission-screen.container { width: calc(100% - 32px); }
+  .mission-layout .site-header { gap: 10px; }
+  .mission-layout .brand { white-space: normal; font-size: 1rem; }
+  .mission-layout .main-nav { gap: 15px; }
+  .mission-topbar { flex-wrap: wrap; padding-block: 8px; }
+  .mission-tools { gap: 15px; }
+  .mission-playground { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'goal' 'scene' 'targets' 'contact' 'console' 'feedback' 'wait'; gap: 6px; }
+  .play-goal { gap: 6px 22px; }
+  .play-goal h2 { flex-basis: 100%; }
+  .play-scene .mission-scene { height: clamp(125px, 24svh, 200px); }
+  .scene-caption { font-size: .875rem; flex-wrap: wrap; }
+  .target-progress { gap: 20px; flex-wrap: wrap; }
+  .target-progress > div { gap: 6px; }
+  .target-progress .mission-photo { width: 38px; }
+  .play-contact { justify-content: flex-start; min-height: 34px; }
+  .play-console { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .play-resources { justify-content: space-between; align-items: center; gap: 20px; }
+  .photo-slot { flex-direction: row; min-width: 65px; gap: 3px; }
+  .primary-control button { min-height: 75px; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .primary-control button > svg { display: none; }
+  .primary-controls { gap: 9px; }
+  .primary-control strong { font-size: 1rem; overflow-wrap: anywhere; }
+  .unavailable-reason { min-height: 2.8em; }
+  .play-feedback { min-height: 3.4em; align-items: flex-start; }
+  .play-wait { flex-wrap: wrap; gap: 5px; }
+  .play-wait span { flex-basis: 100%; }
+  .mission-bottom { flex-wrap: wrap; margin-block: 10px; gap: 3px; }
+  .lesson-progress { gap: 16px; flex-wrap: wrap; }
+  .lesson-content { grid-template-columns: minmax(0, 1fr); gap: 0; text-align: center; min-height: 0; margin-block: 5px 20px; }
+  .lesson-content .mission-scene { height: clamp(145px, 25svh, 230px); }
+  .lesson-copy { min-height: 9rem; }
+  .lesson-copy > p:last-child { margin-inline: auto; }
+  .lesson-navigation { gap: 18px; }
+  .lesson-navigation > button { min-width: 125px; }
+  .lesson-skip { margin-top: 5px; }
+  .compact-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mission-panel > header { align-items: flex-start; flex-wrap: wrap; }
+  .result-photos { gap: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mission-screen *, .mission-screen *::before { animation: none !important; transition: none !important; }
+}
+
