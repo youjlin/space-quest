@@ -3,6 +3,7 @@ import { nextTick, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import SiteHeader from './components/SiteHeader.vue'
 import UiIcon from './components/UiIcon.vue'
+import './styles/station.css'
 
 const route = useRoute()
 const main = ref<HTMLElement | null>(null)
@@ -16,7 +17,7 @@ watch(() => route.path, async () => {
 
 <template>
   <a class="skip-link" href="#main-content" @click.prevent="main?.focus()">跳至主要內容</a>
-  <div class="app-shell" :class="{ 'uses-layout': route.name === 'satellite-uses' || route.name === 'satellite-preparation', 'mission-layout': route.name === 'mission' }">
+  <div class="app-shell" :class="{ 'station-layout': route.name === 'home' || route.name === 'missions', 'uses-layout': route.name === 'satellite-uses' || route.name === 'satellite-preparation', 'mission-layout': route.name === 'mission' }">
     <SiteHeader />
     <main id="main-content" ref="main" tabindex="-1">
       <RouterView />

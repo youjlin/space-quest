@@ -1,0 +1,49 @@
+﻿/* 僅套用首頁與任務路線；關卡不使用 station-layout。 */
+.app-shell.station-layout { overflow: visible; }
+body:has(.station-layout) { min-width: 0; }
+.station-layout .site-header { min-height: 56px; padding-block: 4px; gap: 24px; flex-wrap: wrap; }
+.station-layout .brand-mark { width: 34px; height: 34px; }
+.station-layout .site-footer { margin-top: 0; min-height: 48px; padding-block: 8px; gap: 12px; }
+.station-layout .container { max-width: 1200px; }
+.station-home { display: grid; grid-template-columns: 1fr 1.05fr; gap: 28px; align-items: center; min-height: 380px; padding-block: 16px; }
+.station-home { min-height: max(380px, calc(100svh - 128px)); }
+.station-copy h1 { font-size: clamp(2.75rem, 4.5vw, 4.5rem); line-height: 1.2; margin-top: 14px; }
+.station-copy h1 span { color: var(--cyan); }
+.station-intro { font-size: 1.0625rem; line-height: 1.85; color: #b9cfd9; margin-top: 18px; }
+.station-copy .button { margin-top: 22px; min-height: 52px; }
+.station-copy .button svg { width: 24px; height: 24px; }
+.station-footnote { margin-top: 14px; color: #a1bdcc; font-size: .9375rem; line-height: 1.8; }
+.station-visual { min-width: 0; }
+.station-visual .satellite-illustration { width: 100%; height: clamp(240px, calc(100svh - 200px), 570px); }
+.station-visual figcaption { color: #9fb9c9; font-size: .875rem; text-align: center; line-height: 1.8; }
+.station-route { padding-block: 18px 8px; }
+.station-route-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; }
+.station-route-heading h1 { font-size: 1.75rem; line-height: 1.5; font-weight: 600; }
+.station-route-heading p { color: #b3ccd9; font-size: 1rem; line-height: 1.8; }
+.station-stops { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 20px; }
+.station-stops > li { min-width: 0; display: flex; flex-direction: column; padding: 24px; border-top: 2px solid #6faebc; background: #102a3a; min-height: clamp(290px, calc(100svh - 280px), 540px); }
+.station-number { color: var(--cyan); font-size: .9375rem; line-height: 1.8; }
+.station-stops h2 { font-size: clamp(1.25rem, 1.8vw, 1.625rem); font-weight: 500; line-height: 1.6; margin-top: 14px; overflow-wrap: anywhere; }
+.station-topics { color: #b7ceda; font-size: 1rem; line-height: 1.8; margin-top: 16px; }
+.station-entry { margin-top: auto; padding-top: 24px; }
+.station-entry p { font-size: .9375rem; line-height: 1.8; margin-bottom: 12px; color: #aec6d4; }
+.station-entry .mission-completed-label { color: var(--cyan); }
+.station-entry .button { width: 100%; }
+.station-back { margin-top: 10px; }
+@media (max-width: 700px) {
+  .station-layout .container { width: calc(100% - 36px); }
+  .station-layout .site-header { gap: 12px; }
+  .station-layout .main-nav { gap: 18px; }
+  .station-layout .brand { white-space: normal; }
+  .station-layout .site-footer { flex-direction: column; align-items: flex-start; padding-block: 14px; gap: 10px; }
+  .station-home { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 16px; padding-block: 28px; }
+  .station-copy h1 { font-size: 3rem; }
+  .station-intro { font-size: 1rem; }
+  .station-visual .satellite-illustration { height: clamp(200px, 40svh, 320px); }
+  .station-stops { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .station-stops > li { min-height: 0; padding: 20px; }
+  .station-stops h2 { font-size: 1.375rem; }
+  .station-entry { padding-top: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .station-layout * { transition: none !important; } }
+
